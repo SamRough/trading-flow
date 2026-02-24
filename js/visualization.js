@@ -316,9 +316,21 @@ class VisualizationRenderer {
         }
 
         // 计算完成进度
-        const totalStates = Object.keys(this.stateMachine.states).length;
-        const completedStates = orderHistory.length;
-        const progressPercent = Math.min(Math.round((completedStates / totalStates) * 100), 100);
+        let progressPercent;
+        const terminalStates = ['settled', 'cancelled', 'rejected', 'expired'];
+
+        // 如果是终止状态，直接显示100%
+        if (terminalStates.includes(currentState)) {
+            progressPercent = 100;
+        } else if (currentState === 'partially_filled') {
+            // 部分成交是75%（接近完成）
+            progressPercent = 75;
+        } else {
+            // 对于中间状态，基于当前状态的位置计算（历史长度 / 到settled的典型路径长度）
+            const maxPathLength = 10; // typical path length to settled
+            const completedStates = Math.min(orderHistory.length, maxPathLength);
+            progressPercent = Math.min(Math.round((completedStates / maxPathLength) * 100), 95);
+        }
 
         const progressElement = document.getElementById('progressPercent');
         const progressBar = document.getElementById('progressBar');
