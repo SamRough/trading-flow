@@ -23,7 +23,7 @@
         <!-- Main Content -->
         <div class="row main-content">
             <!-- Left Panel - Controls -->
-            <div class="col-md-3 col-lg-3 left-panel">
+            <div class="col-md-2 col-lg-2 left-panel">
                 <div class="panel-section">
                     <h5><i class="fas fa-cog me-2"></i>订单创建</h5>
                     <form id="orderForm">
@@ -67,6 +67,24 @@
                 </div>
 
                 <div class="panel-section">
+                    <h5><i class="fas fa-tachometer-alt me-2"></i>进度统计</h5>
+                    <div id="progressStats">
+                        <div class="mb-2">
+                            <small>当前状态: <span id="currentState" class="badge bg-secondary">未开始</span></small>
+                        </div>
+                        <div class="mb-2">
+                            <small>已用时间: <span id="elapsedTime">0s</span></small>
+                        </div>
+                        <div class="mb-2">
+                            <small>完成进度: <span id="progressPercent">0%</span></small>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-section">
                     <h5><i class="fas fa-play-circle me-2"></i>控制面板</h5>
                     <div class="btn-group w-100 mb-3" role="group">
                         <button type="button" class="btn btn-success" id="playBtn" disabled>
@@ -92,28 +110,10 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="panel-section">
-                    <h5><i class="fas fa-tachometer-alt me-2"></i>进度统计</h5>
-                    <div id="progressStats">
-                        <div class="mb-2">
-                            <small>当前状态: <span id="currentState" class="badge bg-secondary">未开始</span></small>
-                        </div>
-                        <div class="mb-2">
-                            <small>已用时间: <span id="elapsedTime">0s</span></small>
-                        </div>
-                        <div class="mb-2">
-                            <small>完成进度: <span id="progressPercent">0%</span></small>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Middle Panel - Visualization -->
-            <div class="col-md-6 col-lg-6 middle-panel">
+            <div class="col-md-8 col-lg-8 middle-panel">
                 <div class="panel-section">
                     <h5><i class="fas fa-project-diagram me-2"></i>流程可视化</h5>
                     <div id="flowchart-container" class="text-center">
@@ -136,7 +136,7 @@
             </div>
 
             <!-- Right Panel - Information -->
-            <div class="col-md-3 col-lg-3 right-panel">
+            <div class="col-md-2 col-lg-2 right-panel">
                 <div class="panel-section">
                     <h5><i class="fas fa-info-circle me-2"></i>状态说明</h5>
                     <div id="stateInfo">
