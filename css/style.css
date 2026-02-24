@@ -157,7 +157,7 @@ body {
 
 #flowchart-container {
     flex: 1;
-    min-height: 300px;
+    min-height: 400px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -166,8 +166,8 @@ body {
     margin-bottom: 15px;
     overflow-y: auto;
     overflow-x: auto;
-    padding: 20px;
-    max-height: 500px;
+    padding: 15px;
+    max-height: 600px;
 }
 
 .mermaid svg {
@@ -480,8 +480,8 @@ body {
     fill: #f8f9fa !important;
     stroke: #007bff !important;
     stroke-width: 2px !important;
-    rx: 12px !important;
-    ry: 12px !important;
+    rx: 8px !important;
+    ry: 8px !important;
 }
 
 .mermaid .node.active rect {
@@ -497,33 +497,33 @@ body {
 .mermaid .node text {
     fill: #333 !important;
     font-weight: 600 !important;
-    font-size: 16px !important;
+    font-size: 12px !important;
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 .mermaid .node.active text {
     fill: white !important;
-    font-size: 18px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
 }
 
 .mermaid .edgePath path {
     stroke: #007bff !important;
-    stroke-width: 3px !important;
+    stroke-width: 2px !important;
 }
 
 .mermaid .edgeLabel {
     background: white !important;
-    border-radius: 8px !important;
-    padding: 6px 12px !important;
-    font-size: 14px !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    font-size: 10px !important;
     font-weight: 500 !important;
     color: #333 !important;
     border: 1px solid #dee2e6 !important;
 }
 
 .mermaid .edgeLabel text {
-    font-size: 14px !important;
+    font-size: 10px !important;
     font-weight: 500 !important;
     fill: #333 !important;
 }

@@ -65,6 +65,10 @@ class VisualizationRenderer {
     renderFlowchart(mermaidCode, containerId = 'flowchart-container') {
         const container = document.getElementById(containerId);
 
+        // 记录当前滚动位置
+        const currentScrollTop = container.scrollTop;
+        const currentScrollLeft = container.scrollLeft;
+
         // 清除现有内容，防止重复渲染
         container.innerHTML = '';
 
@@ -103,10 +107,12 @@ class VisualizationRenderer {
                     .node text {
                         fill: #333 !important;
                         font-weight: 600 !important;
+                        font-size: 12px !important;
                         font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
                     }
                     .node.active text {
                         fill: white !important;
+                        font-size: 14px !important;
                     }
                     .edgePath path {
                         stroke: #007bff !important;
@@ -116,7 +122,7 @@ class VisualizationRenderer {
                         background: white !important;
                         border-radius: 4px !important;
                         padding: 2px 6px !important;
-                        font-size: 11px !important;
+                        font-size: 10px !important;
                     }
                 `
             });
@@ -128,6 +134,11 @@ class VisualizationRenderer {
 
         // 延迟执行滚动，等待Mermaid渲染完成
         setTimeout(() => {
+            // 恢复之前滚动位置，避免跳动到顶部
+            container.scrollTop = currentScrollTop;
+            container.scrollLeft = currentScrollLeft;
+
+            // 再滚动到当前活跃的节点
             this.scrollToActiveNode();
         }, 500);
     }
