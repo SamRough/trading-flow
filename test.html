@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票交易流程可视化 - 功能测试</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .test-container { background: white; border-radius: 15px; padding: 30px; margin: 50px auto; max-width: 800px; }
+        .test-section { border-left: 4px solid #007bff; padding-left: 20px; margin-bottom: 30px; }
+        .test-item { padding: 10px; margin: 5px 0; border-radius: 8px; }
+        .test-success { background: #d4edda; color: #155724; }
+        .test-failed { background: #f8d7da; color: #721c24; }
+        .test-warning { background: #fff3cd; color: #856404; }
+        .list-group-item { border-radius: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="test-container">
+                    <h1 class="text-center mb-4">
+                        <i class="fas fa-vial"></i> 股票交易流程可视化系统测试报告
+                    </h1>
+                    <div class="text-center mb-4">
+                        <p class="text-muted">测试时间: <span id="testTime"></span></p>
+                    </div>
+
+                    <div class="test-section">
+                        <h4><i class="fas fa-cogs"></i> 基本功能测试</h4>
+                        <div class="list-group">
+                            <div class="list-group-item test-item" id="test1">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试JavaScript模块加载...
+                            </div>
+                            <div class="list-group-item test-item" id="test2">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试订单状态机...
+                            </div>
+                            <div class="list-group-item test-item" id="test3">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试订单类功能...
+                            </div>
+                            <div class="list-group-item test-item" id="test4">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试场景工厂...
+                            </div>
+                            <div class="list-group-item test-item" id="test5">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试可视化渲染器...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section">
+                        <h4><i class="fas fa-exchange-alt"></i> 状态转换测试</h4>
+                        <div class="list-group">
+                            <div class="list-group-item test-item" id="test6">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试正常状态流转...
+                            </div>
+                            <div class="list-group-item test-item" id="test7">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试异常状态流转...
+                            </div>
+                            <div class="list-group-item test-item" id="test8">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试状态转换规则...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section">
+                        <h4><i class="fas fa-play-circle"></i> 场景执行测试</h4>
+                        <div class="list-group">
+                            <div class="list-group-item test-item" id="test9">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试正常买入场景...
+                            </div>
+                            <div class="list-group-item test-item" id="test10">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试立即成交流程...
+                            </div>
+                            <div class="list-group-item test-item" id="test11">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试撤单流程...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section">
+                        <h4><i class="fas fa-eye"></i> 可视化测试</h4>
+                        <div class="list-group">
+                            <div class="list-group-item test-item" id="test12">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试流程图生成...
+                            </div>
+                            <div class="list-group-item test-item" id="test13">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试时间线生成...
+                            </div>
+                            <div class="list-group-item test-item" id="test14">
+                                <i class="fas fa-spinner fa-spin"></i> 正在测试状态信息渲染...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-section">
+                        <h4><i class="fas fa-comments"></i> 测试总结</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-3">
+                                        <h4 id="totalTests">0</h4>
+                                        <small class="text-muted">总测试数</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h4 class="text-success" id="passedTests">0</h4>
+                                        <small class="text-muted">通过</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h4 class="text-warning" id="warningTests">0</h4>
+                                        <small class="text-muted">警告</small>
+                                    </div>
+                                    <div class="col-3">
+                                        <h4 class="text-danger" id="failedTests">0</h4>
+                                        <small class="text-muted">失败</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary" onclick="location.href='index.html'">
+                            <i class="fas fa-play"></i> 运行主程序
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="js/orderFlow.js"></script>
+    <script src="js/visualization.js"></script>
+    <script>
+        // 显示测试时间
+        document.getElementById('testTime').textContent = new Date().toLocaleString('zh-CN');
+
+        const testResults = {
+            total: 0,
+            passed: 0,
+            warnings: 0,
+            failed: 0
+        };
+
+        function updateResult(testId, success, message) {
+            const element = document.getElementById(testId);
+            testResults.total++;
+
+            if (success === true) {
+                element.className = 'list-group-item test-item test-success';
+                element.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                testResults.passed++;
+            } else if (success === 'warning') {
+                element.className = 'list-group-item test-item test-warning';
+                element.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+                testResults.warnings++;
+            } else {
+                element.className = 'list-group-item test-item test-failed';
+                element.innerHTML = `<i class="fas fa-times-circle"></i> ${message}`;
+                testResults.failed++;
+            }
+
+            // 更新统计
+            document.getElementById('totalTests').textContent = testResults.total;
+            document.getElementById('passedTests').textContent = testResults.passed;
+            document.getElementById('warningTests').textContent = testResults.warnings;
+            document.getElementById('failedTests').textContent = testResults.failed;
+        }
+
+        // 1. 测试JavaScript模块加载
+        try {
+            if (typeof OrderStateMachine !== 'undefined' &&
+                typeof Order !== 'undefined' &&
+                typeof VisualizationRenderer !== 'undefined') {
+                updateResult('test1', true, 'JavaScript模块加载成功');
+            } else {
+                updateResult('test1', 'warning', '部分模块未定义');
+            }
+        } catch (e) {
+            updateResult('test1', false, 'JavaScript加载失败: ' + e.message);
+        }
+
+        // 2. 测试订单状态机
+        try {
+            const stateMachine = new OrderStateMachine();
+            const states = Object.keys(stateMachine.states).length;
+
+            if (states === 13) {
+                updateResult('test2', true, `订单状态机正常（${states}个状态）`);
+            } else {
+                updateResult('test2', 'warning', `状态数量异常（${states}个）`);
+            }
+        } catch (e) {
+            updateResult('test2', false, '状态机初始化失败: ' + e.message);
+        }
+
+        // 3. 测试订单类功能
+        try {
+            const testOrder = new Order('000001', 'limit', 100, 10.5);
+
+            if (testOrder.id && testOrder.status === 'pending_new') {
+                updateResult('test3', true, '订单类功能正常');
+            } else {
+                updateResult('test3', 'warning', '订单属性异常');
+            }
+        } catch (e) {
+            updateResult('test3', false, '订单类创建失败: ' + e.message);
+        }
+
+        // 4. 测试场景工厂
+        try {
+            const scenarios = ScenarioFactory.getAllScenarios();
+
+            if (scenarios.length === 6) {
+                updateResult('test4', true, `场景工厂正常（${scenarios.length}个场景）`);
+            } else {
+                updateResult('test4', 'warning', `场景数量异常（${scenarios.length}个）`);
+            }
+        } catch (e) {
+            updateResult('test4', false, '场景工厂失败: ' + e.message);
+        }
+
+        // 5. 测试可视化渲染器
+        try {
+            const renderer = new VisualizationRenderer();
+
+            if (renderer.stateMachine) {
+                updateResult('test5', true, '可视化渲染器初始化成功');
+            } else {
+                updateResult('test5', 'warning', '渲染器配置异常');
+            }
+        } catch (e) {
+            updateResult('test5', false, '渲染器加载失败: ' + e.message);
+        }
+
+        // 6. 测试正常状态流转
+        try {
+            const order = new Order('000001', 'limit', 100, 10.5);
+            const transitions = ['validated', 'routing', 'submitted', 'working'];
+
+            let valid = true;
+            transitions.forEach(state => {
+                order.updateStatus(state);
+                if (order.status !== state) {
+                    valid = false;
+                }
+            });
+
+            updateResult('test6', valid, valid ? '状态流转正常' : '状态流转异常');
+        } catch (e) {
+            updateResult('test6', false, '状态流转测试失败: ' + e.message);
+        }
+
+        // 7. 测试异常状态流转
+        try {
+            const order = new Order('000001', 'limit', 100, 10.5);
+            const stateMachine = new OrderStateMachine();
+
+            // 尝试非法转换应该失败
+            const isValid = stateMachine.isValidTransition('pending_new', 'filled');
+
+            updateResult('test7', !isValid, !isValid ? '非法转换被正确拒绝' : '转换规则异常');
+        } catch (e) {
+            updateResult('test7', false, '异常测试失败: ' + e.message);
+        }
+
+        // 8. 测试转换规则
+        try {
+            const stateMachine = new OrderStateMachine();
+            const transitionInfo = stateMachine.getTransitionInfo('pending_new', 'validated');
+
+            if (transitionInfo && transitionInfo.condition === '风控检查通过') {
+                updateResult('test8', true, '转换规则配置正常');
+            } else {
+                updateResult('test8', 'warning', '转换规则数据异常');
+            }
+        } catch (e) {
+            updateResult('test8', false, '规则测试失败: ' + e.message);
+        }
+
+        // 9. 测试正常买入场景
+        try {
+            const normalScenario = ScenarioFactory.createNormalBuy();
+
+            if (normalScenario.steps.length >= 10) {
+                updateResult('test9', true, `正常场景正常（${normalScenario.steps.length}步）`);
+            } else {
+                updateResult('test9', 'warning', '场景步骤数量不足');
+            }
+        } catch (e) {
+            updateResult('test9', false, '场景测试失败: ' + e.message);
+        }
+
+        // 10. 测试立即成交流程
+        try {
+            const instantScenario = ScenarioFactory.createInstantFill();
+            const workingToFilled = instantScenario.steps.some(step => step.from === 'working' && step.to === 'filled');
+
+            updateResult('test10', workingToFilled, workingToFilled ? '立即成交场景正常' : '场景路径异常');
+        } catch (e) {
+            updateResult('test10', false, '立即成交测试失败: ' + e.message);
+        }
+
+        // 11. 测试撤单流程
+        try {
+            const cancelScenario = ScenarioFactory.createCancellation();
+            const hasCancellation = cancelScenario.steps.some(step => step.to === 'cancelled');
+
+            updateResult('test11', hasCancellation, hasCancellation ? '撤单场景正常' : '撤销路径缺失');
+        } catch (e) {
+            updateResult('test11', false, '撤单测试失败: ' + e.message);
+        }
+
+        // 12. 测试流程图生成
+        try {
+            const renderer = new VisualizationRenderer();
+            const order = new Order('000001', 'limit', 100, 10.5);
+
+            const mermaidCode = renderer.generateFlowchart(order.history, order.status);
+            const hasStates = mermaidCode.includes('pending_new') && mermaidCode.includes('flowchart');
+
+            updateResult('test12', hasStates, hasStates ? '流程图生成正常' : '流程图代码异常');
+        } catch (e) {
+            updateResult('test12', false, '流程图测试失败: ' + e.message);
+        }
+
+        // 13. 测试时间线生成
+        try {
+            const renderer = new VisualizationRenderer();
+            const order = new Order('000001', 'limit', 100, 10.5);
+
+            // 模拟DOM元素
+            const mockContainer = {
+                innerHTML: '',
+                querySelector: () => null
+            };
+
+            // 测试是否能生成时间线HTML（不完全准确，但可验证基本逻辑）
+            document.originalGetElementById = document.getElementById;
+            document.getElementById = (id) => {
+                if (id === 'timeline-container') return mockContainer;
+                return document.originalGetElementById(id);
+            };
+
+            renderer.renderTimeline(order.history, order.status);
+
+            // 恢复原始函数
+            document.getElementById = document.originalGetElementById;
+
+            updateResult('test13', true, '时间线生成正常');
+        } catch (e) {
+            updateResult('test13', false, '时间线测试失败: ' + e.message);
+        }
+
+        // 14. 测试状态信息渲染
+        try {
+            const stateMachine = new OrderStateMachine();
+            const stateInfo = stateMachine.getStateInfo('pending_new');
+
+            if (stateInfo && stateInfo.name === '待创建') {
+                updateResult('test14', true, '状态信息渲染正常');
+            } else {
+                updateResult('test14', 'warning', '状态信息异常');
+            }
+        } catch (e) {
+            updateResult('test14', false, '状态信息测试失败: ' + e.message);
+        }
+    </script>
+</body>
+</html>

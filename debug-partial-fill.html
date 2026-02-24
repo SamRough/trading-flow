@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug: 部分成交到完全成交流程测试</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Mermaid -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <h1>调试：部分成交到完全成交流程</h1>
+        <p>此页面用于调试从部分成交(partially_filled)到完全成交(filled)的路径显示问题</p>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>流程图</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="flowchart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>调试信息</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>测试场景</h6>
+                        <p><strong>场景名称:</strong> 部分成交最终成交</p>
+                        <p><strong>模拟路径:</strong></p>
+                        <ul>
+                            <li>pending_new → validated → working → partially_filled → filled</li>
+                        </ul>
+
+                        <hr>
+
+                        <h6>控制台输出</h6>
+                        <p>请打开浏览器开发者工具(F12)查看控制台输出</p>
+                        <ul>
+                            <li>查看生成的Mermaid代码</li>
+                            <li>检查转换规则是否找到</li>
+                            <li>查看可能的有渲染错误</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/orderFlow.js"></script>
+    <script src="js/visualization.js"></script>
+
+    <script>
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Debug: Initializing test scenario...');
+
+            // 创建状态机实例
+            const stateMachine = new OrderStateMachine();
+            const renderer = new VisualizationRenderer();
+
+            // 创建模拟的订单历史 - 部分成交场景
+            const mockOrderHistory = [
+                { status: 'pending_new', timestamp: new Date('2025-01-01T09:00:00') },
+                { status: 'validated', timestamp: new Date('2025-01-01T09:00:01') },
+                { status: 'working', timestamp: new Date('2025-01-01T09:00:02') },
+                { status: 'partially_filled', timestamp: new Date('2025-01-01T09:00:03') }
+            ];
+
+            const currentState = 'partially_filled';
+
+            // 验证状态定义
+            console.log('States defined:', Object.keys(stateMachine.states));
+            console.log('partially_filled state info:', stateMachine.getStateInfo('partially_filled'));
+            console.log('filled state info:', stateMachine.getStateInfo('filled'));
+
+            // 检查转换规则
+            try {
+                const transitionInfo = stateMachine.getTransitionInfo('partially_filled', 'filled');
+                console.log('Transition info for partially_filled -> filled:', transitionInfo);
+            } catch (e) {
+                console.error('Error getting transition info:', e);
+            }
+
+            // 检查nextStates
+            const partiallyFilledState = stateMachine.getStateInfo('partially_filled');
+            if (partiallyFilledState && partiallyFilledState.nextStates) {
+                console.log('partially_filled nextStates:', partiallyFilledState.nextStates);
+                console.log('Does it include "filled"?', partiallyFilledState.nextStates.includes('filled'));
+            }
+
+            // 生成流程图
+            console.log('Generating flowchart...');
+            const mermaidCode = renderer.generateFlowchart(mockOrderHistory, currentState);
+
+            // 手动验证Mermaid代码
+            console.log('Manual verification:');
+            console.log('Does code include partially_filled? ', mermaidCode.includes('partially_filled'));
+            console.log('Does code include filled? ', mermaidCode.includes('filled'));
+            console.log('Does code include the transition? ',
+                mermaidCode.includes('partially_filled') && mermaidCode.includes('filled'));
+
+            // 提取相关行
+            const lines = mermaidCode.split('\n').filter(line =>
+                line.includes('partially_filled') && line.includes('-->'));
+            console.log('Lines with partially_filled transitions:');
+            lines.forEach(line => console.log('  ' + line));
+
+            // 渲染流程图
+            console.log('Rendering flowchart...');
+            const mermaidContainer = document.getElementById('flowchart-container');
+            if (mermaidContainer) {
+                mermaidContainer.innerHTML = '<div class=\"mermaid\">' + mermaidCode + '</div>';
+
+                // 初始化并渲染
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'default',
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true,
+                        curve: 'basis'
+                    }
+                });
+
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+                console.log('Flowchart rendered successfully');
+            } else {
+                console.error('Flowchart container not found');
+            }
+
+            // 测试直接跳转到filled状态
+            setTimeout(() => {
+                console.log('\n=== Testing transition to filled state ===');
+                const mermaidCode2 = renderer.generateFlowchart([
+                    ...mockOrderHistory,
+                    { status: 'filled', timestamp: new Date('2025-01-01T09:00:04') }
+                ], 'filled');
+            }, 2000);
+        });
+    </script>
+
+    <style>
+        .mermaid {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</body>
+</html>
