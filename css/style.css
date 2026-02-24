@@ -159,12 +159,15 @@ body {
     flex: 1;
     min-height: 300px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background: #f8f9fa;
     border-radius: 10px;
     margin-bottom: 15px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 20px;
+    max-height: 500px;
 }
 
 .mermaid svg {
@@ -461,23 +464,24 @@ body {
     width: 100% !important;
     height: 100% !important;
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
 }
 
 .mermaid svg {
     max-width: 100% !important;
-    max-height: 100% !important;
+    max-height: none !important;
     width: auto !important;
     height: auto !important;
+    min-width: 800px;
 }
 
 .mermaid .node rect {
     fill: #f8f9fa !important;
     stroke: #007bff !important;
-    stroke-width: 2px;
-    rx: 8px;
-    ry: 8px;
+    stroke-width: 2px !important;
+    rx: 12px !important;
+    ry: 12px !important;
 }
 
 .mermaid .node.active rect {
@@ -493,22 +497,35 @@ body {
 .mermaid .node text {
     fill: #333 !important;
     font-weight: 600 !important;
+    font-size: 16px !important;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
 .mermaid .node.active text {
     fill: white !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
 }
 
 .mermaid .edgePath path {
     stroke: #007bff !important;
-    stroke-width: 2px !important;
+    stroke-width: 3px !important;
 }
 
 .mermaid .edgeLabel {
     background: white !important;
-    border-radius: 4px !important;
-    padding: 4px 8px !important;
-    font-size: 12px !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.mermaid .edgeLabel text {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    fill: #333 !important;
 }
 
 /* Responsive Design */

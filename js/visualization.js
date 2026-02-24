@@ -125,6 +125,36 @@ class VisualizationRenderer {
 
         // 渲染当前图表
         mermaid.init(undefined, mermaidContainer);
+
+        // 延迟执行滚动，等待Mermaid渲染完成
+        setTimeout(() => {
+            this.scrollToActiveNode();
+        }, 500);
+    }
+
+    // 滚动到当前活跃的节点
+    scrollToActiveNode() {
+        const container = document.getElementById('flowchart-container');
+        const svg = container?.querySelector('svg');
+        if (!svg) return;
+
+        // 查找活跃节点（基于CSS类名）
+        const activeNode = svg.querySelector('.node.active');
+        if (activeNode) {
+            const nodeRect = activeNode.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            // 计算滚动位置，使节点在容器中居中
+            const scrollTop = nodeRect.top - containerRect.top + container.scrollTop - (containerRect.height / 2) + (nodeRect.height / 2);
+            const scrollLeft = nodeRect.left - containerRect.left + container.scrollLeft - (containerRect.width / 2) + (nodeRect.width / 2);
+
+            // 使用平滑滚动
+            container.scrollTo({
+                top: Math.max(0, scrollTop),
+                left: Math.max(0, scrollLeft),
+                behavior: 'smooth'
+            });
+        }
     }
 
     // 渲染时间线
@@ -381,6 +411,11 @@ class VisualizationRenderer {
         if (currentNode) {
             currentNode.classList.add('active');
         }
+
+        // 滚动到当前节点
+        setTimeout(() => {
+            this.scrollToActiveNode();
+        }, 100);
     }
 
     // 动画显示状态转换
